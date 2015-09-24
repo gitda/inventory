@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+.bglogo {
+	background-image: url(../img/logo-nkp-tp.jpg);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+.text18 {
+	font-family: "TH SarabunPSK", Tahoma, Verdana;
+	font-size: 18px;
+}
+.text18Bold {
+	font-family: "TH SarabunPSK", Tahoma, Verdana;
+	font-size: 18px;
+	font-weight: bold;
+}
+.text22 {
+	font-family: "TH SarabunPSK", Tahoma, Verdana;
+	font-size: 20px;
+}
+.text22Bold {
+	font-family: "TH SarabunPSK", Tahoma, Verdana;
+	font-size: 20px;
+	font-weight: bold;
+}
+.text24Bold {
+	font-family: "TH SarabunPSK", Tahoma, Verdana;
+	font-size: 24px;
+	font-weight: bold;
+}
