@@ -227,6 +227,7 @@ $(document).ready(function() {
     		$("#"+opt.child[0].name).select2("val", "{{$helpdesk->symptom_id}}");
         		validator.element($("#"+opt.child[0].name));
         }
+        ///asd
 
     },true);
 
