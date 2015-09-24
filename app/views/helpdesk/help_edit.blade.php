@@ -59,11 +59,6 @@
 						      	</select>
 							</div>	
 							<div class="col-sm-4">
-<!-- 								<select id="symptoms_id" name="symptoms_id" class="form-control" required>
-									<option value="">--เลือก--</option>
-								</select>
-
- -->
 								<select class="form-control select2" id="symptoms_id" name="symptoms_id" required>
 						      	</select>
 							</div>
@@ -109,11 +104,22 @@
 						      		@endforeach
 						      	</select>
 							</div>
+						</div>
+						<div class="form-group">
+							<label for="workbench" class="col-sm-2 control-label">ส่งต่อให้</label>
 							<div class="col-sm-4">
 								<select class="form-control" id="workbench" name="workbench" required>
 						      		<option value="">--ส่งต่องาน--</option>
 						      		@foreach($workbench as $wb)
 						      	 	<option value="{{$wb->workbench_id}}" @if($helpdesk->workbench==$wb->workbench_id) {{'selected'}} @endif>{{$wb->workbench_name}}</option>
+						      		@endforeach
+						      	</select>
+							</div>
+							<div class="col-sm-4">
+								<select class="form-control" id="forward_type" name="forward_type" required>
+						      		<option value="">--สาเหตุการส่งต่อ--</option>
+						      		@foreach($forward_type as $ft)
+						      	 	<option value="{{$ft->forward_type_id}}" @if($helpdesk->forward_type==$ft->forward_type_id) {{'selected'}} @endif>{{$ft->forward_type_name}}</option>
 						      		@endforeach
 						      	</select>
 							</div>
@@ -223,11 +229,12 @@ $(document).ready(function() {
         editValue:'{{$helpdesk->helpdesk_type_id}}',
     },function(ele,res,opt){
     	
+    	$("#"+opt.child[0].name).select2("val", "");
+    	
     	if(res.length>0){
     		$("#"+opt.child[0].name).select2("val", "{{$helpdesk->symptom_id}}");
         		validator.element($("#"+opt.child[0].name));
         }
-        ///asd
 
     },true);
 

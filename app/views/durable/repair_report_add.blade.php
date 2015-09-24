@@ -354,6 +354,52 @@
 					<!-- fieldset 3 -->
 					<fieldset>
 						<legend>ผลการซ่อม</legend>
+						
+						<div class="form-group">
+							<div class="validate-group">
+								<label for="" class="col-sm-2 control-label">ประเภทงาน</label>
+							    <div class="col-sm-4">
+							      <select id="search_dept_id" name="search_dept_id" class="selectpicker form-control" required>
+									<option value="">--เลือก--</option>
+									@foreach($dept as $d)
+						            <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
+						            @endforeach
+								  </select>
+							    </div>
+						   	</div>
+
+							<div class="validate-group">
+								<label for="repair_out_problem" class="col-sm-2 control-label">อาการชำรุด</label>
+							    <div class="col-sm-4">
+							      <select id="search_dept_id" name="search_dept_id" class="selectpicker form-control" required>
+									<option value="">--เลือก--</option>
+									@foreach($dept as $d)
+						            <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
+						            @endforeach
+								  </select>
+							    </div>
+						   	</div>
+						</div>
+						<div class="form-group">
+							<div class="validate-group">
+								<label for="" class="col-sm-2 control-label">สาเหตุ</label>
+							    <div class="col-sm-4">
+							      <select id="search_dept_id" name="search_dept_id" class="selectpicker form-control" required>
+									<option value="">--เลือก--</option>
+									@foreach($dept as $d)
+						            <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
+						            @endforeach
+								  </select>
+							    </div>
+						   	</div>
+
+							<div class="validate-group">
+								<label for="repair_out_problem" class="col-sm-2 control-label">สาเหตุอื่นๆ</label>
+							    <div class="col-sm-4">
+							      <textarea  class="form-control" id="repair_out_problem" name="repair_out_problem" rows="1" required>{{$repair->repair_out_problem}}</textarea>
+							    </div>
+						   	</div>
+						</div>
 						<div class="form-group">
 							<div class="validate-group">
 							    <label for="repair_out_status" class="col-sm-2 control-label">ผลการซ่อม</label>
@@ -366,12 +412,6 @@
 							      </select>
 							    </div>
 						    </div>
-							<div class="validate-group">
-								<label for="repair_out_problem" class="col-sm-2 control-label">สาเหตุ</label>
-							    <div class="col-sm-4">
-							      <textarea  class="form-control" id="repair_out_problem" name="repair_out_problem" rows="1" required>{{$repair->repair_out_problem}}</textarea>
-							    </div>
-						   	</div>
 						</div>
 						
 					</fieldset>

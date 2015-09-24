@@ -29,12 +29,13 @@ class HelpdeskController extends BaseController {
 		$helptype = DB::table('helpdesk_type')->get();
 		$help_result = DB::table('help_result')->get();
 
+		$forward_type = ForwardType::where('is_status','=','1')->get();
 		$ruin_type = RuinTypeStatus::where('ruin_type_status','=','1')->get();
 
 
 
 		return View::make('helpdesk.help_create')
-					->with(compact('technician','reslove_type','sub_dept','cause','workbench','helptype','help_result','ruin_type'));
+					->with(compact('technician','reslove_type','sub_dept','cause','workbench','helptype','help_result','ruin_type','forward_type'));
 	}
 	public function getAjax()
 	{
@@ -88,6 +89,7 @@ class HelpdeskController extends BaseController {
 		$helpdesk->cause = null;
 		$helpdesk->workbench = null;
 		$helpdesk->help_result = Input::get('help_result');
+		$helpdesk->forward_type = Input::get('forward_type');
 
 		if($reslove_type=='1')
 		{
@@ -139,9 +141,10 @@ class HelpdeskController extends BaseController {
 		$helptype = DB::table('helpdesk_type')->get();
 		$help_result = DB::table('help_result')->get();
 		$ruin_type = RuinTypeStatus::where('ruin_type_status','=','1')->get();
+		$forward_type = ForwardType::where('is_status','=','1')->get();
 
 		return View::make('helpdesk.help_edit')
-					->with(compact('technician','reslove_type','sub_dept','cause','workbench','helpdesk','helptype','help_result','ruin_type'));
+					->with(compact('technician','reslove_type','sub_dept','cause','workbench','helpdesk','helptype','help_result','ruin_type','forward_type'));
 
 	}
 	public function getHelpEditRedirect($helpdesk_id)
@@ -152,12 +155,14 @@ class HelpdeskController extends BaseController {
 	{
 		$reslove_type = Input::get('reslove_type');
 		$workbench =  Input::get('workbench');
+		$forward_type = Input::get('forward_type');
 		$dept_id =  DB::table('tb_sub_dept')->where('sub_dept_id','=', Input::get('sub_dept_id'))->pluck('dept_id');//Input::all();
 		
 		$helpdesk = Helpdesk::find(Crypt::decrypt($helpid));
 		$helpdesk->help_description = Input::get('help_description');
 		$helpdesk->dept_id = $dept_id;
-		$helpdesk->helpdesk_type_id = Input::get('helpdesk_type_id');
+		$helpdesk->helpdesk_type_id = Input::get('ruin_type_id');
+		$helpdesk->symptom_id = Input::get('symptoms_id');
 		$helpdesk->sub_dept_id = Input::get('sub_dept_id');
 		$helpdesk->contact_name = Input::get('contact_name');
 		$helpdesk->reslove_type = $reslove_type;
@@ -166,6 +171,12 @@ class HelpdeskController extends BaseController {
 		$helpdesk->cause = null;
 		$helpdesk->workbench = null;
 		$helpdesk->help_result = Input::get('help_result');
+		$helpdesk->forward_type = null;
+
+		if(!is_null($forward_type))
+		{
+			$helpdesk->forward_type = $forward_type;
+		}
 
 		if($reslove_type=='1')
 		{
@@ -269,7 +280,7 @@ class HelpdeskController extends BaseController {
 		$dr->sub_dept2 = $input['sub_dept_name'];
 		$dr->tel = $input['tel'];
 		$dr->repair_type = '1';
-		$dr->ruin_type = $input['ruin_type'];
+		$dr->ruin_type = $input['ruin_type_id'];
 		$dr->ruin = $input['ruin'];
 		$dr->repair_name = $input['contact_name'];
 		$dr->repair_status_report = '0';
@@ -278,6 +289,7 @@ class HelpdeskController extends BaseController {
 		$dr->insert_time = $dd->format('H:i:s');
 		$dr->insert_from_ip = $_SERVER['REMOTE_ADDR'];
 		$dr->auto_set_get_name = $next_auto_set;
+		$dr->symptom = $input['symptoms_id'];
 		$dr->save();
 
 		$helpdesk = Helpdesk::find($input['helpdesk_id']);

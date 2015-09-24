@@ -99,15 +99,19 @@
 
 						
 						<div class="form-group">
-							<label for="ruin_type" class="col-sm-2 control-label">อาการชำรุด</label>
-							<div class="col-sm-8">
-								<select class="form-control select2" id="ruin_type" name="ruin_type" required>
+							<label for="ruin_type_id" class="col-sm-2 control-label">อาการชำรุด</label>
+							<div class="col-sm-4">
+								<select class="form-control select2" id="ruin_type_id" name="ruin_type_id" required>
 						      		<option value="">--เลือกอาการชำรุด--</option>
 						      		@foreach($ruin_type as $rt)
-						      	 	<option value="{{$rt->ruin_type_name}}">{{$rt->ruin_type_name}}</option>
+						      	 	<option value="{{$rt->ruin_type_name}}" @if($rt->ruin_type_id==$helpdesk->helpdesk_type_id) {{'selected'}} @endif>{{$rt->ruin_type_name}}</option>
 						      		@endforeach
 						      	</select>
 							</div>	
+							<div class="col-sm-4">
+								<select class="form-control select2" id="symptoms_id" name="symptoms_id" required>
+						      	</select>
+							</div>
 						</div>
 						
 						<div class="clearfix"></div>
@@ -146,8 +150,10 @@ $(document).ready(function() {
 		}
 		else if(value==2) /// เลือกส่งต่องาน
 		{
+
 			$("#cause").addClass("hide").val('');
 			$("#workbench").removeClass("hide").val('');
+
 		}
 		else /// none
 		{
@@ -186,6 +192,25 @@ $(document).ready(function() {
 		    form.submit();
 		}
 	});
+
+	var change = $("#ruin_type_id").dropChange({
+        child:[{
+            name:'symptoms_id',
+            url:'{{URL::to("combo/symptoms")}}',
+            key:'symptom_id',
+            ref:'symptom_name',
+            display:'symptom_name',
+            selectedValue: '{{$helpdesk->symptom_id}}'
+        }],
+        editValue:'{{$helpdesk->helpdesk_type_id}}',
+    },function(ele,res,opt){
+    	$("#"+opt.child[0].name).select2("val", "");
+    	if(res.length>0){
+    		$("#"+opt.child[0].name).select2("val", "{{$helpdesk->symptom_id}}");
+        		validator.element($("#"+opt.child[0].name));
+        }
+
+    },true);
 
 	var change = $("#dept_id").dropChange({
         child:[{

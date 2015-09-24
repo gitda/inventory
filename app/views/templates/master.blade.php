@@ -417,7 +417,7 @@
 <script type="text/javascript">
 	var base_url = 'http://110.78.163.74/inventory2/';
 	var timestamp;
-	var availableTime = 5;
+	var availableTime = 1;
 	var interval;
 	var available = false;
 	function goto(ele){

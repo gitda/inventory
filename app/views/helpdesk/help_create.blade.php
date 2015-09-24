@@ -85,6 +85,7 @@
 						      	</select>
 							</div>	
 						</div>
+
 						<div class="form-group">
 							<label for="reslove_type" class="col-sm-2 control-label">ผลการปฏิบัติ</label>
 							<div class="col-sm-4">
@@ -103,6 +104,10 @@
 						      		@endforeach
 						      	</select>
 							</div>
+						</div>
+
+						<div id="pnl-forward" class="form-group">
+							<label for="workbench" class="col-sm-2 control-label">ส่งต่อให้</label>
 							<div class="col-sm-4">
 								<select class="form-control" id="workbench" name="workbench" required>
 						      		<option value="">--ส่งต่องาน--</option>
@@ -111,7 +116,18 @@
 						      		@endforeach
 						      	</select>
 							</div>
+							<div class="col-sm-4">
+								<select class="form-control" id="forward_type" name="forward_type" required>
+						      		<option value="">--สาเหตุการส่งต่อ--</option>
+						      		@foreach($forward_type as $ft)
+						      	 	<option value="{{$ft->forward_type_id}}">{{$ft->forward_type_name}}</option>
+						      		@endforeach
+						      	</select>
+							</div>
 						</div>
+
+
+
 						<div class="form-group">
 							<label for="staff_id" class="col-sm-2 control-label">ผู้รับโทรศัพท์</label>
 							<div class="col-sm-4">
@@ -171,17 +187,17 @@ $(document).ready(function() {
 		if(value==1) /// เลือก ตอบเอง
 		{
 			$("#cause").removeClass("hide").val('');
-			$("#workbench").addClass("hide").val('');
+			$("#pnl-forward").addClass("hide").find("select").val('');
 		}
 		else if(value==2) /// เลือกส่งต่องาน
 		{
 			$("#cause").addClass("hide").val('');
-			$("#workbench").removeClass("hide").val('');
+			$("#pnl-forward").removeClass("hide").find("select").val('');
 		}
 		else /// none
 		{
 			$("#cause").addClass("hide").val('');
-			$("#workbench").addClass("hide").val('');
+			$("#pnl-forward").addClass("hide").find("select").val('');
 		}
 	}
 
@@ -202,6 +218,7 @@ $(document).ready(function() {
             key:'symptom_id',
             display:'symptom_name'
         }]
+
     },function(ele,res,opt){
     	$("#"+opt.child[0].name).select2("val", "");
 
