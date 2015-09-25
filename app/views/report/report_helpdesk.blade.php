@@ -2,7 +2,6 @@
 @section('title','รายการซ่อมครุภัณฑ์')
 
 @section('js_header')
-
 {{HTML::style('assets/plugins/datepicker/datepicker3.css')}}
 {{HTML::script('assets/plugins/datepicker/bootstrap-datepicker.js')}}
 {{HTML::script('assets/plugins/datepicker/bootstrap-datepicker.th.js')}}
@@ -34,10 +33,13 @@
 
 
 	<div class="col-md-2">
-		<input type="text" class="form-control datepickers0" id="repair_date" name="repair_date" required>
+		<input type="text" class="form-control datepickers0" id="t1" name="t1" required>
 	</div>
 	<div class="col-md-2">
-		<input type="text" class="form-control datepickers1" id="repair_date1" name="repair_date1" required>
+		<input type="text" class="form-control datepickers1" id="t2" name="t2" required>
+	</div>
+	<div>
+		<button id="submit" class="btn btn-primary">ค้นหา</button>
 	</div>
 
 </div>
@@ -82,7 +84,7 @@
 
         </table>
 <div id="table_report1_hidden" class="hidden">
-        <table class="table table-bordered" align="center" id="table_report1" style="width: 90%;">
+        <table class="table table-bordered table-datatable" align="center" id="table_report1" style="width: 90%;">
             <thead>
                 <tr>
                     <th width="5%">ลำดับ</td>
@@ -104,26 +106,43 @@
 
 	$(document).ready(function(){
 
-		$('.datepickers0').datepicker({
+		$(".datepickers0").datepicker({
 	        autoclose: true,
 	        todayHighlight: true,
 	        format: "d MM yyyy",
 	        language: "th-th",
 	        forceParse: false
     	});
-		$('.datepickers1').datepicker({
+		$(".datepickers1").datepicker({
 	        autoclose: true,
 	        todayHighlight: true,
 	        format: "d MM yyyy",
 	        language: "th-th",
 	        forceParse: false
     	});
+    	$("#submit").click(function(){
+    		$.get("{{URL::to('report/report-helpdesk/selecthelpdeskpost')}}"+'/'+$("#t1").datepicker("getDate")+''/+$("#t2").datepicker("getDate")).done(function(data){
+    			console.log(data);
+    		});
+    	});
+
+        LoadDataTablesScripts(table)
+
 	});
-	
+    function table()
+    {
+        $("#table_report1").dataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{URL::to('report/report-helpdesk/selecthelpdeskok')}}"
+        });
+    }
+
     function reslove_type(a){
     	$("#table_report1_hidden").removeClass('hidden');
     	$("#table_report1 tbody").empty();
     	var $a=1;
+
         $.get("{{URL::to('report/report-helpdesk/selecthelpdeskok')}}"+'/'+a).done(function(data){
             $.each(data,function(key,dataget){
             	$("#table_report1 tbody").append(
@@ -136,6 +155,8 @@
             	);
             });
         })
+        a
+
     }
 </script>
 @stop
