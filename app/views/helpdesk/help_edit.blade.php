@@ -105,7 +105,7 @@
 						      	</select>
 							</div>
 						</div>
-						<div class="form-group">
+						<div id="pnl-forward" class="form-group">
 							<label for="workbench" class="col-sm-2 control-label">ส่งต่อให้</label>
 							<div class="col-sm-4">
 								<select class="form-control" id="workbench" name="workbench" required>
@@ -192,17 +192,17 @@ $(document).ready(function() {
 		if(value==1) /// เลือก ตอบเอง
 		{
 			$("#cause").removeClass("hide");
-			$("#workbench").addClass("hide");
+			$("#pnl-forward").addClass("hide").find("select").val("");
 		}
 		else if(value==2) /// เลือกส่งต่องาน
 		{
 			$("#cause").addClass("hide");
-			$("#workbench").removeClass("hide");
+			$("#pnl-forward").removeClass("hide").find("select").val("");
 		}
 		else /// none
 		{
 			$("#cause").addClass("hide");
-			$("#workbench").addClass("hide");
+			$("#pnl-forward").addClass("hide").find("select").val("");
 		}
 	}
 
