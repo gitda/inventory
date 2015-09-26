@@ -74,6 +74,7 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 	Route::controller('helpdesk','HelpdeskController');
 	Route::controller('faq','FaqController');
 
+<<<<<<< HEAD
 
 	Route::group(array('prefix' => 'report'),function(){
 
@@ -82,6 +83,10 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 
 	});
 	
+=======
+	Route::controller('report/report-helpdesk', 'RHelpdeskController');
+	Route::controller('report/report-gap', 'GapController');
+>>>>>>> origin/master
 
 
 	Route::group(array('prefix' => 'admin'),function(){
