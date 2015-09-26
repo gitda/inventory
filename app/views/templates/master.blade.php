@@ -180,6 +180,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a class="ajax-unlink" href="{{URL::to('report/report-helpdesk')}}"><i class="fa fa-sticky-note-o"></i> รายงานHELPDESK</a></li>
+						<li><a class="ajax-unlink" href="{{URL::to('report/report-gap')}}"><i class="fa fa-sticky-note-o"></i> Gap Analysis</a></li>
 					</ul>
 				</li>
 				<li>
