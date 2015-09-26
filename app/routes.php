@@ -74,7 +74,14 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 	Route::controller('helpdesk','HelpdeskController');
 	Route::controller('faq','FaqController');
 
-	Route::controller('report/report-helpdesk', 'RHelpdeskController');
+
+	Route::group(array('prefix' => 'report'),function(){
+
+		Route::controller('report-helpdesk', 'RHelpdeskController');
+		Route::controller('durable', 'report\DurableController');
+
+	});
+	
 
 
 	Route::group(array('prefix' => 'admin'),function(){

@@ -179,7 +179,8 @@
 						<span class="hidden-xs">REPORT</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="ajax-unlink" href="{{URL::to('report/report-helpdesk')}}"><i class="fa fa-sticky-note-o"></i> รายงานHELPDESK</a></li>
+						<li><a class="ajax-unlink" href="{{URL::to('report/report-helpdesk')}}"><i class="fa fa-sticky-note-o"></i> รายงาน HELPDESK</a></li>
+						<li><a class="ajax-unlink" href="{{URL::to('report/durable/list')}}"><i class="fa fa-sticky-note-o"></i> ข้อมูลครุภัณฑ์คอมพิวเตอร์</a></li>
 					</ul>
 				</li>
 				<li>
