@@ -3,6 +3,13 @@
 
 
 @section('js_header')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+<style type="text/css">
+	div.dataTables_wrapper {
+        margin-bottom: 3em;
+    }
+</style>
+{{HTML::script('assets/js/jquery.dataTables.min.js')}}
 @stop
 
 @section('content')
@@ -54,7 +61,7 @@
 </div>
 <br>
 
-	<table class="table table-bordered">
+	<table class="table table-bordered display" id="tb1">
 		<thead>
 			<tr>
 				<th width="15%" class="text-center">หน่วยงาน</th>
@@ -85,4 +92,9 @@
 @stop
 
 @section('js_footer')
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#tb1").dataTable();
+		});
+	</script>
 @stop
