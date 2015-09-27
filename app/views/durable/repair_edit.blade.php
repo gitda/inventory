@@ -121,6 +121,10 @@
 					    	<div class="col-sm-4">
 					      		<input type="text" class="form-control" id="repair_name" name="repair_name" value="{{$repair->repair_name}}" >
 					    	</div>
+					    	<label for="repair_name" class="col-sm-2 control-label">โทรศัพท์</label>
+					    	<div class="col-sm-4">
+					      		<input type="text" class="form-control" id="tel" name="tel" value="{{$repair->tel}}" >
+					    	</div>
 					  	</div>
 						<div class="form-group">
 					    	<label for="urgency" class="col-sm-2 control-label">ความเร่งด่วน</label>
@@ -155,7 +159,7 @@
 						    </div>
 						    
 						    <label for="amount" class="col-sm-2 control-label">จำนวน</label>
-						    <div class="col-sm-4">
+						    <div class="col-sm-1">
 						      	<input type="text" class="form-control" id="amount" name="amount" value="{{$repair->amount}}">
 						    </div>
 					  	</div>
@@ -222,18 +226,21 @@
 					<fieldset>
 					<legend>อาการชำรุด</legend>
 						<div class="form-group">
-							<div class="validate-group">
-							    <label for="ruin_type" class="col-sm-2 control-label">อาการชำรุด</label>
-							    <div class="col-sm-4">
-							      	<select class="form-control" id="ruin_type" name="ruin_type" required>
-							      		<option value="">--เลือก--</option>
-							      		@foreach($ruin_type as $rt)
-							      	 	<option value="{{$rt->ruin_type_name}}" @if($repair->ruin_type==$rt->ruin_type_name) selected @endif>{{$rt->ruin_type_name}}</option>
-							      		@endforeach
-							      </select>
-							    </div>
-						    </div>
+							<label for="ruin_type" class="col-sm-2 control-label">เรื่อง</label>
+							<div class="col-sm-4">
+								<select class="form-control select2" id="ruin_type" name="ruin_type" required>
+						      		<option value="">--เลือก--</option>
+						      		@foreach($ruin_type as $rt)
+						      	 	<option value="{{$rt->ruin_type_name}}" @if($repair->ruin_type==$rt->ruin_type_name) selected @endif>{{$rt->ruin_type_name}}</option>
+						      		@endforeach
+						      	</select>
+							</div>	
+							<div class="col-sm-4">
+								<select class="form-control select2" id="symptoms_id" name="symptoms_id" required>
+						      	</select>
+							</div>
 						</div>
+
 						<div class="form-group">
 							<div class="validate-group">
 								<label for="ruin" class="col-sm-2 control-label">รายละเอียดการชำรุด</label>
@@ -242,6 +249,10 @@
 							    </div>
 						   	</div>
 						</div>
+
+
+						
+
 						
 					</fieldset>
 					<!-- end fieldset 3 -->
@@ -375,6 +386,11 @@ $(document).ready(function() {
 		}
 	});
 
+	$('.select2').select2({
+		theme: "classic",
+		allow_single_deselect: true
+	});
+
 	var change = $("#dept_id").dropChange({
         child:[{
             name:'sub_dept_id',
@@ -392,7 +408,29 @@ $(document).ready(function() {
 
         }
     },true);
-    
+
+    var change = $("#ruin_type").dropChange({
+        child:[{
+            name:'symptoms_id',
+            url:'{{URL::to("combo/symptomsbyname")}}',
+            key:'symptom_id',
+            ref:'symptom_name',
+            display:'symptom_name',
+            selectedValue: '{{$repair->symptom}}'
+        }],
+        editValue:'{{$repair->ruin_type}}',
+    },function(ele,res,opt){
+    	
+    	$("#"+opt.child[0].name).select2("val","");
+    	
+    	if(res.length>0){
+    		$("#"+opt.child[0].name).select2("val", "{{$repair->symptom}}");
+        		validator.element($("#"+opt.child[0].name));
+        }
+
+    },true);
+
+
 	var search_change = $("#search_dept_id").dropChange({
         child:[{
             name:'search_sub_dept_id',
@@ -439,6 +477,9 @@ $(document).ready(function() {
     }).on("changeDate", function(e){
     	validator.element($(this));
 	});
+
+
+
 
 
 });

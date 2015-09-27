@@ -80,24 +80,41 @@
 								<label class="control-label">{{$repair->repair_name}}</label>
 							</div>
 						</div>	
+
 						<div class="form-group">
-							<label for="durable_id" class="col-sm-2 control-label">อาการชำรุด</label>
-							<div class="col-sm-4">
-								<label class="control-label">{{$repair->ruin_type}} {{$repair->ruin}}</label>
-							</div>
+							<div class="validate-group">
+								<label for="" class="col-sm-2 control-label">ประเภทงาน</label>
+							    <div class="col-sm-4">
+							      <select class="form-control select2" id="ruin_type" name="ruin_type" required>
+						      		<option value="">--เลือก--</option>
+						      		@foreach($ruin_type as $rt)
+						      	 	<option value="{{$rt->ruin_type_name}}" @if($repair->ruin_type==$rt->ruin_type_name) selected @endif>{{$rt->ruin_type_name}}</option>
+						      		@endforeach
+						      	</select>
+							    </div>
+						   	</div>
+
+							<div class="validate-group">
+								<label for="repair_out_problem" class="col-sm-2 control-label">อาการชำรุด</label>
+							    <div class="col-sm-4">
+							      <select class="form-control select2" id="symptoms_id" name="symptoms_id" required>
+						      		</select>
+							    </div>
+						   	</div>
+						</div>
+
+						<div class="form-group">
+
 							<label for="durable_name" class="col-sm-2 control-label">รับงานเมื่อ</label>
 							<div class="col-sm-4">
 								<label class="control-label">{{\Helpers\Helper::toDateThai($repair->repair_technician_get_date,'Y-m-d H:i:s','d/m/Y H:i:s')}}</label>
 								<label class="control-label text-info">(
-
-									
-								
 								{{\Helpers\Helper::secondsToTime(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$repair->insert_date.' '.$repair->insert_time)->diffInSeconds(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$repair->repair_technician_get_date)))}}
-
-
 								)</label>
 							</div>
 						</div>
+						
+
 					</fieldset>
 					<!-- end fieldset 1 -->
 					<!-- fieldset 1 -->
@@ -354,47 +371,17 @@
 					<!-- fieldset 3 -->
 					<fieldset>
 						<legend>ผลการซ่อม</legend>
-						
-						<div class="form-group">
-							<div class="validate-group">
-								<label for="" class="col-sm-2 control-label">ประเภทงาน</label>
-							    <div class="col-sm-4">
-							      <select id="search_dept_id" name="search_dept_id" class="selectpicker form-control" required>
-									<option value="">--เลือก--</option>
-									@foreach($dept as $d)
-						            <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
-						            @endforeach
-								  </select>
-							    </div>
-						   	</div>
 
-							<div class="validate-group">
-								<label for="repair_out_problem" class="col-sm-2 control-label">อาการชำรุด</label>
-							    <div class="col-sm-4">
-							      <select id="search_dept_id" name="search_dept_id" class="selectpicker form-control" required>
-									<option value="">--เลือก--</option>
-									@foreach($dept as $d)
-						            <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
-						            @endforeach
-								  </select>
-							    </div>
-						   	</div>
-						</div>
 						<div class="form-group">
-							<div class="validate-group">
+<!-- 							<div class="validate-group">
 								<label for="" class="col-sm-2 control-label">สาเหตุ</label>
 							    <div class="col-sm-4">
-							      <select id="search_dept_id" name="search_dept_id" class="selectpicker form-control" required>
-									<option value="">--เลือก--</option>
-									@foreach($dept as $d)
-						            <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
-						            @endforeach
-								  </select>
+
 							    </div>
-						   	</div>
+						   	</div> -->
 
 							<div class="validate-group">
-								<label for="repair_out_problem" class="col-sm-2 control-label">สาเหตุอื่นๆ</label>
+								<label for="repair_out_problem" class="col-sm-2 control-label">สาเหตุ</label>
 							    <div class="col-sm-4">
 							      <textarea  class="form-control" id="repair_out_problem" name="repair_out_problem" rows="1" required>{{$repair->repair_out_problem}}</textarea>
 							    </div>
@@ -710,7 +697,31 @@ $(document).ready(function() {
  		AddDevice();
  	})
 
+ 	$('.select2').select2({
+		theme: "classic",
+		allow_single_deselect: true
+	});
 
+	var change = $("#ruin_type").dropChange({
+        child:[{
+            name:'symptoms_id',
+            url:'{{URL::to("combo/symptomsbyname")}}',
+            key:'symptom_id',
+            ref:'symptom_name',
+            display:'symptom_name',
+            selectedValue: '{{$repair->symptom}}'
+        }],
+        editValue:'{{$repair->ruin_type}}',
+    },function(ele,res,opt){
+    	
+    	$("#"+opt.child[0].name).select2("val","");
+    	
+    	if(res.length>0){
+    		$("#"+opt.child[0].name).select2("val", "{{$repair->symptom}}");
+        		validator.element($("#"+opt.child[0].name));
+        }
+
+    },true);
 
 
 

@@ -87,7 +87,7 @@ function TableStatus(status_id){
             },{
             	render: function ( data,type,obj,row) {
 
-                    return "<a class='ajax-unlink' href='{{URL::to('helpdesk/help-edit-redirect')}}/"+obj.id+"' ><i class='fa fa-pencil fa-2x text-info'></i></a>"
+                    return "<a class='ajax-unlink' target='_blank' href='{{URL::to('helpdesk/help-edit-redirect')}}/"+obj.id+"' ><i class='fa fa-pencil fa-2x text-info'></i></a>"
                 },targets: 7, orderable: false
             }
             ],

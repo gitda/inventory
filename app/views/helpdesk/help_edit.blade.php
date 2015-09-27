@@ -197,7 +197,7 @@ $(document).ready(function() {
 		else if(value==2) /// เลือกส่งต่องาน
 		{
 			$("#cause").addClass("hide");
-			$("#pnl-forward").removeClass("hide").find("select").val("");
+			$("#pnl-forward").removeClass("hide").find("select").val({{$helpdesk->workbench}});
 		}
 		else /// none
 		{

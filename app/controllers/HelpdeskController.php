@@ -109,6 +109,7 @@ class HelpdeskController extends BaseController {
 			switch($workbench)
 			{
 				case "1":
+
 					$redirect = "helpdesk/help-fix/".Crypt::encrypt($helpdesk->id);
 					break;
 				case "2":
@@ -194,7 +195,8 @@ class HelpdeskController extends BaseController {
 			switch($workbench)
 			{
 				case "1":
-					$redirect = "helpdesk/help-fix/".Crypt::encrypt($helpdesk->id)."/".$helpdesk->repair_id;
+					$redirect = "helpdesk/help-list";
+					//$redirect = "helpdesk/help-fix/".Crypt::encrypt($helpdesk->id)."/".$helpdesk->repair_id;
 					break;
 				case "2":
 					$redirect = "helpdesk/help-list";
@@ -221,6 +223,10 @@ class HelpdeskController extends BaseController {
 		$ruin_type = DB::table('tb_ruin_type')->where('ruin_type_status','=','1')->orderBy('ruin_type_order','asc')->get();
 		$dept = DB::table('tb_dept')->where('dept_status','=','1')->orderBy('dept_name','asc')->get();
 		
+		$urgency = DB::table('tb_urgency')->get();
+		$risk = DB::table('tb_risk')->get();
+		$important_work = DB::table('tb_important_work')->get();
+
 
 		$hsub_dept = DB::table('tb_sub_dept')->where('sub_dept_id','=',$helpdesk->sub_dept_id)->first();
 		$hdept = DB::table('tb_dept')->where('dept_id','=',$hsub_dept->dept_id)->first();
@@ -231,7 +237,7 @@ class HelpdeskController extends BaseController {
 		}
 		
 		return View::make('helpdesk.help_fix')
-					->with(compact('helpdesk','ruin_type','hsub_dept','hdept','dept','repair'));
+					->with(compact('helpdesk','ruin_type','hsub_dept','hdept','dept','repair','urgency','risk','important_work'));
 	}
 	public function postHelpFix()
 	{
@@ -290,6 +296,9 @@ class HelpdeskController extends BaseController {
 		$dr->insert_from_ip = $_SERVER['REMOTE_ADDR'];
 		$dr->auto_set_get_name = $next_auto_set;
 		$dr->symptom = $input['symptoms_id'];
+		$dr->urgency = $input['urgency'];
+		$dr->important_work = $input['important_work'];
+		$dr->risk = $input['risk'];
 		$dr->save();
 
 		$helpdesk = Helpdesk::find($input['helpdesk_id']);

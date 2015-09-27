@@ -63,6 +63,12 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 
 		return $data;
 	});
+	Route::get('combo/symptomsbyname',function(){
+		$data = DB::table('symptom')->leftJoin('tb_ruin_type','tb_ruin_type.ruin_type_id','=','symptom.ruin_type_id')->where('tb_ruin_type.ruin_type_name','=',Input::get('id'))->where('is_status','=','1')
+				->orderBy('symptom_id','asc')->get();
+
+		return $data;
+	});
 
 
 	Route::get('dashboard', function()

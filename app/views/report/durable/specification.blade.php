@@ -118,7 +118,7 @@ a#link_page:hover {
 -->
 </style></head>
 
-<body>
+<body style="padding:0 0 0 75px;">
 
 <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
@@ -140,9 +140,9 @@ a#link_page:hover {
       return \Helpers\Helper::toDateThai($str);
     }
     if ($durable->durable_img != "") {
-		echo "<img src='http://localhost/inventory/images/durable/$durable->durable_img'>";
+		echo "<img src='http://192.168.99.9/keling/inventory/images/durable/$durable->durable_img'>";
   	} else {
-  		echo "<img src='http://localhost/inventory/images/durable/noimage.jpg'>";
+  		echo "<img src='http://192.168.99.9/keling/inventory/images/durable/noimage.jpg'>";
   	}
 	
   ?></td>
@@ -381,7 +381,7 @@ a#link_page:hover {
           <td width="15%" height="25" align="right" class="textBlackBold">รหัสบาร์โค๊ด</td>
           <td width="37%" height="25" align="left" class="textBlackNormal">
           @if($durable->durable_barcode!="")
-          <img src="http://localhost/inventory/barcode/barcode.php?barcode={{$durable->durable_barcode}}&width=300&height=60&pop={{$durable->durable_barcode}}%27" />
+          <img src="http://192.168.99.9/keling/inventory/barcode/barcode.php?barcode={{$durable->durable_barcode}}&width=300&height=60&pop={{$durable->durable_barcode}}%27" />
           @endif
           </td>
         </tr>
@@ -394,7 +394,7 @@ a#link_page:hover {
 </table>
 <script type="text/javascript">
 window.print();
-setTimeout(function(){window.close();}, 1);
+//setTimeout(function(){window.close();}, 1);
 </script>
 </body>
 </html>

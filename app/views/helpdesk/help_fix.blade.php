@@ -87,7 +87,7 @@
 						<div class="form-group">
 							<label for="ruin" class="col-sm-2 control-label">รายละเอียดการชำรุด</label>
 							<div class="col-sm-8">
-								<textarea  class="form-control" id="ruin" name="ruin" rows="5" required>{{$helpdesk->help_note}}</textarea>
+								<textarea  class="form-control" id="ruin" name="ruin" rows="5" required>{{$helpdesk->help_description}}</textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -99,7 +99,7 @@
 
 						
 						<div class="form-group">
-							<label for="ruin_type_id" class="col-sm-2 control-label">อาการชำรุด</label>
+							<label for="ruin_type_id" class="col-sm-2 control-label">เรื่อง</label>
 							<div class="col-sm-4">
 								<select class="form-control select2" id="ruin_type_id" name="ruin_type_id" required>
 						      		<option value="">--เลือกอาการชำรุด--</option>
@@ -108,11 +108,47 @@
 						      		@endforeach
 						      	</select>
 							</div>	
+							<label for="tel" class="col-sm-2 control-label">อาการชำรุด</label>
 							<div class="col-sm-4">
 								<select class="form-control select2" id="symptoms_id" name="symptoms_id" required>
 						      	</select>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label for="ruin" class="col-sm-2 control-label">ความเร่งด่วน</label>
+							<div class="col-sm-4">
+								<select class="form-control" id="urgency" name="urgency" required>
+					      			<option value="">--เลือกความเร่งด่วน--</option>
+					      			@foreach($urgency as $ur)
+					      	 		<option value="{{$ur->urgency_id}}">{{$ur->urgency_name}}</option>
+					      			@endforeach
+					      		</select>
+							</div>
+							<label for="tel" class="col-sm-2 control-label">อุบัติการณ์</label>
+							<div class="col-sm-4">
+								<select class="form-control" id="risk" name="risk" required>
+					      			<option value="">--เลือกอุบัติการณ์--</option>
+					      			@foreach($risk as $rsk)
+					      	 		<option value="{{$rsk->risk_id}}" >{{$rsk->risk_name}}</option>
+					      			@endforeach
+					      		</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="ruin" class="col-sm-2 control-label">ความสำคัญ</label>
+							<div class="col-sm-4">
+								<select class="form-control" id="important_work" name="important_work" required>
+						      		<option value="">--เลือกความสำคัญ--</option>
+						      		@foreach($important_work as $iw)
+						      	 	<option value="{{$iw->important_work_id}}">{{$iw->important_work_name}}</option>
+						      		@endforeach
+						      </select>
+							</div>
+						</div>
+
+
 						
 						<div class="clearfix"></div>
 

@@ -62,6 +62,7 @@ class DurableController extends BaseController {
 		if(Input::has('amount')) $repair->amount = $input['amount'];
 		$repair->repair_type = $input['repair_type'];
 		$repair->ruin_type = $input['ruin_type'];
+		$repair->symptom = $input['symptoms_id'];
 		$repair->ruin = $input['ruin'];
 		$repair->durable_id = $input['durable_id'];
 		$repair->repair_name = $input['repair_name'];
@@ -199,7 +200,6 @@ class DurableController extends BaseController {
 	}
 	public function postRepairReportAdd($repair_id)
 	{
-		//return Input::all();
 		$repair =  DurableRepair::find($repair_id);
 		$repair->repair_opr = Input::get('repair_opr');
 		$repair->repair_result = Input::get('repair_result');
@@ -230,8 +230,14 @@ class DurableController extends BaseController {
 		$repair->insert_report_date = date("Y-m-d");
 		$repair->insert_report_time = date("H:i:s");
 		$repair->insert_report_id = Sentry::getUser()->id;
+
 		$repair->repair_status_report = '1';
 		$repair->repair_status = Input::get('repair_status');
+
+		$repair->ruin_type = Input::get('ruin_type');
+		$repair->symptom = Input::get('symptoms_id');
+
+
 		$repair->save();
 
 
