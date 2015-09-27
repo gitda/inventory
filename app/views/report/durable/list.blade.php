@@ -36,6 +36,16 @@
 			<div class="box-content">
 
 				<h4 class="page-header">รายการครุภัณฑ์คอมพิวเตอร์</h4>
+				ชนิดครุภัณฑ์
+				<select id="mySelect">
+
+				    <option value=""></option>
+				    @foreach($durable_kind as $dk)
+				    <option value="{{$dk->durable_kind_name}}">{{$dk->durable_kind_name}}</option>
+				    @endforeach
+				</select>
+				<hr/>
+
 				<table id="dt_ruin_type" class="table table-bordered table-striped">
 					 <thead>
 			            <tr>
@@ -54,13 +64,18 @@
 			        	@foreach($list as $k => $d)
 			        	<tr>
 			        		<td style="font-size:12px">{{($k+1)}}</td>
-			        		<td style="font-size:12px">{{$d->durable_date}}</td>
+			        		<td style="font-size:12px">{{\Helpers\Helper::toDateThai($d->durable_date,'Y-m-d','d/m/Y')}}</td>
 			        		<td style="font-size:12px">{{$d->durable_id}}</td>
 			        		<td style="font-size:12px">{{$d->durable_kind_name}}</td>
 			        		<td style="font-size:12px">{{$d->durable_name}}</td>
 			        		<td style="font-size:12px">{{number_format($d->durable_price, 2)}}</td>
 			        		<td style="font-size:12px">{{$d->sub_dept_name}}@if ($d->sub_dept_id == "D009") {{$d->durable_location}} @endif</td>
-			        		<td style="font-size:12px">{{$d->status_name}}</td>
+			        		<td style="font-size:12px">
+			        		{{$d->status_name}}
+			        		@if($d->snmp_ip!="")
+			        		<br /><i class="fa fa-sitemap"></i> {{$d->snmp_ip}}
+			        		@endif
+			        		</td>
 			        		<td><a href="{{URL::to('report/durable/print-specific/'.$d->durable_id)}}" target="_blank"><i class="fa fa-print"></i></a></td>
 			        	</tr>
 			        	@endforeach
@@ -95,13 +110,27 @@
 	function Table(){
 		var table = $('#dt_ruin_type').dataTable({
 			"bSort": false,
+			 "iDisplayLength": 30,
 			//"bFilter" : false,               
 			"bLengthChange": false,
 		});
 	}
+
 	$(document).ready(function() {
+		
 
     	LoadDataTablesScripts(LoadTables);
+    	
+    	
+
+
+    	$('#mySelect').on('change',function(){
+    		var oTable = $('#dt_ruin_type').dataTable();
+	        var selectedValue = $(this).val();
+
+	        oTable.fnFilter(selectedValue, 3, true); //Exact value, column, reg
+
+	    });
     	//$('#dt_ruin_type').css("color","red");
 
 	});

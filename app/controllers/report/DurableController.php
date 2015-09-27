@@ -4,6 +4,7 @@ namespace report;
 use Durable;
 use View;
 use DB;
+use DurableKind;
 
 class DurableController extends \BaseController {
 
@@ -16,15 +17,17 @@ class DurableController extends \BaseController {
         	})
 			->leftJoin('tb_sub_dept as tsd','tsd.sub_dept_id','=','tb_durable.sub_dept_id')
 			->leftJoin('tb_durable_status as tds','tds.status_id','=','tb_durable.durable_status')
-			->select('tb_durable.durable_id','tdk.durable_kind_name','tb_durable.durable_name','tb_durable.durable_date','tb_durable.durable_price','tb_durable.sub_dept_id','tsd.sub_dept_name','tb_durable.durable_location','tb_durable.durable_status','tds.status_name', 'tb_durable.durable_borrow_status')
+			->leftJoin('tb_snmp as s','s.durable_id','=','tb_durable.durable_id')
+			->select('tb_durable.durable_id','tdk.durable_kind_name','tb_durable.durable_name','tb_durable.durable_date','tb_durable.durable_price','tb_durable.sub_dept_id','tsd.sub_dept_name','tb_durable.durable_location','tb_durable.durable_status','tds.status_name', 'tb_durable.durable_borrow_status','s.ip as snmp_ip')
 			->where('tb_durable.durable_id','!=','""')
+			->groupBy('tb_durable.durable_id')
 			->get();
 
-
+		$durable_kind =  DurableKind::where('durable_type_id','=','03')->get();
 
 
 		return  View::make('report.durable.list')
-					->with(compact('list'));
+					->with(compact('list','durable_kind'));
 	}
 
 	public function getPrintSpecific($durable_id)
