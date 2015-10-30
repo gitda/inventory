@@ -85,11 +85,14 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 
 		Route::controller('report-helpdesk', 'RHelpdeskController');
 		Route::controller('durable', 'report\DurableController');
+		Route::controller('report-gap', 'GapController');
+		Route::controller('repair', 'report\RepairController');
 
 	});
+
+
 	
-	Route::controller('report/report-helpdesk', 'RHelpdeskController');
-	Route::controller('report/report-gap', 'GapController');
+	
 
 
 

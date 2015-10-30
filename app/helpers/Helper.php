@@ -6,6 +6,16 @@ use Carbon\Carbon;
 
 class Helper {
 
+	private static $month = array('มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม');
+
+	public static function GetDefaultMonthPick()
+	{
+		return self::MonthThai(date('m'),true).' '.(date('Y')+543);
+	}
+	public static function GetDefaultDatePick()
+	{
+		return date('d').' '.self::MonthThai(date('m'),true).' '.(date('Y')+543);
+	}
     public static function DateFormat($date, $form='d/m/Y', $to='Y-m-d')
     {
     	$dt = Carbon::createFromFormat($form, $date);
@@ -19,6 +29,15 @@ class Helper {
 		if($short)
 			return $allmonthfull[$month-1];
 		return $allmonth[$month-1];
+	}
+
+	public static function fromFullDate($fulldate)
+	{
+		$ex = explode(" ", $fulldate);
+		$format = ($ex[2]-543)."-".(array_search($ex[1],self::$month)+1)."-".$ex[0];
+		
+		$date = Carbon::createFromFormat('Y-m-d', $format)->format('Y-m-d');
+		return $date;
 	}
 
 	public static function toDateThai($date, $form='Y-m-d', $to='d/m/Y')

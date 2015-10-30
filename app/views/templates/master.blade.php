@@ -173,19 +173,46 @@
 						<span class="hidden-xs">HELPDESK</span>
 					</a>
 				</li>
-				<li>
+
+				<li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-sticky-note-o"></i>
-						<span class="hidden-xs">REPORT</span>
+						 <span class="hidden-xs">REPORT</span>
 					</a>
 					<ul class="dropdown-menu">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">
+								<i class="fa fa-plus-square"></i>
+								<span class="hidden-xs">ครุภัณฑ์</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="ajax-unlink" href="{{URL::to('report/durable/list')}}"><i class="fa fa-sticky-note-o"></i> ข้อมูลครุภัณฑ์คอมพิวเตอร์</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/report-gap')}}"><i class="fa fa-sticky-note-o"></i> Gap Analysis</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/repair/recieve')}}"><i class="fa fa-sticky-note-o"></i> ทะเบียนรับงาน</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/durable/repair-job-month')}}"><i class="fa fa-sticky-note-o"></i> *รายงาน JOB สรุปผลในเดือน</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/repair/technician')}}"><i class="fa fa-sticky-note-o"></i> รายงาน JOB สรุปผลในเดือน (ช่าง)</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/repair/job-dept')}}"><i class="fa fa-sticky-note-o"></i> รายงาน JOB สรุปผลในเดือน (หน่วยงาน)</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/durable/repair-type-month')}}"><i class="fa fa-sticky-note-o"></i> *รายงานจำแนกประเภทการซ่อมบำรุง</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/repair/technician-notsummary')}}"><i class="fa fa-sticky-note-o"></i> รายงาน JOB ยังไม่สรุปผล (ช่าง)</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/repair/job-dept-notsummary')}}"><i class="fa fa-sticky-note-o"></i> รายงาน JOB ยังไม่สรุปผล (หน่วยงาน)</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/durable/repair-type-month')}}"><i class="fa fa-sticky-note-o"></i> *รายงาน JOB ยังไม่สรุปผล (หน่วยงาน)</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/durable/repair-job-month')}}"><i class="fa fa-sticky-note-o"></i> *ประวัติการซ่อมบำรุงครุภัณฑ์</a></li>
+								<li><a class="ajax-unlink" href="{{URL::to('report/durable/repair-job-month')}}"><i class="fa fa-sticky-note-o"></i> *ประวัติการซ่อมซ้ำ</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">
+								<i class="fa fa-plus-square"></i>
+								<span class="hidden-xs">Helpdesk</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="ajax-unlink" href="{{URL::to('report/report-helpdesk')}}"><i class="fa fa-sticky-note-o"></i> รายงาน HELPDESK</a></li>
 
-						<li><a class="ajax-unlink" href="{{URL::to('report/report-helpdesk')}}"><i class="fa fa-sticky-note-o"></i> รายงาน HELPDESK</a></li>
-						<li><a class="ajax-unlink" href="{{URL::to('report/durable/list')}}"><i class="fa fa-sticky-note-o"></i> ข้อมูลครุภัณฑ์คอมพิวเตอร์</a></li>
-						<li><a class="ajax-unlink" href="{{URL::to('report/report-gap')}}"><i class="fa fa-sticky-note-o"></i> Gap Analysis</a></li>
-
+							</ul>
+						</li>
 					</ul>
 				</li>
+
 				<li>
 					<a href="{{URL::to('admin')}}" class="ajax-unlink">
 						<i class="fa fa-linux"></i>
@@ -297,67 +324,8 @@
 						 <span class="hidden-xs">Calendar</span>
 					</a>
 				 </li>
-				<li class="dropdown hide">
-					<a href="#" class="dropdown-toggle">
-						<i class="fa fa-picture-o"></i>
-						 <span class="hidden-xs">Multilevel menu</span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">First level menu</a></li>
-						<li><a href="#">First level menu</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle">
-								<i class="fa fa-plus-square"></i>
-								<span class="hidden-xs">Second level menu group</span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Second level menu</a></li>
-								<li><a href="#">Second level menu</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle">
-										<i class="fa fa-plus-square"></i>
-										<span class="hidden-xs">Three level menu group</span>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Three level menu</a></li>
-										<li><a href="#">Three level menu</a></li>
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle">
-												<i class="fa fa-plus-square"></i>
-												<span class="hidden-xs">Four level menu group</span>
-											</a>
-											<ul class="dropdown-menu">
-												<li><a href="#">Four level menu</a></li>
-												<li><a href="#">Four level menu</a></li>
-												<li class="dropdown">
-													<a href="#" class="dropdown-toggle">
-														<i class="fa fa-plus-square"></i>
-														<span class="hidden-xs">Five level menu group</span>
-													</a>
-													<ul class="dropdown-menu">
-														<li><a href="#">Five level menu</a></li>
-														<li><a href="#">Five level menu</a></li>
-														<li class="dropdown">
-															<a href="#" class="dropdown-toggle">
-																<i class="fa fa-plus-square"></i>
-																<span class="hidden-xs">Six level menu group</span>
-															</a>
-															<ul class="dropdown-menu">
-																<li><a href="#">Six level menu</a></li>
-																<li><a href="#">Six level menu</a></li>
-															</ul>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-										<li><a href="#">Three level menu</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
+
+				
 			</ul>
 		</div>
 

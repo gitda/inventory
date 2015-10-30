@@ -71,4 +71,5 @@ class DurableController extends \BaseController {
 				->with(compact('durable'));
 	}
 
+
 }
