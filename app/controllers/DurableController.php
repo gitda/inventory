@@ -371,6 +371,7 @@ class DurableController extends BaseController {
 				if(Input::has('search')){
 					$result->whereRaw('(durable_barcode like "%'.Input::get('search').'%" or durable_id like "%'.Input::get('search').'%" or durable_name like "%'.Input::get('search').'%")');
 				}
+
 				$result->take(10);
 			return $result->get();
 		}
@@ -420,8 +421,13 @@ class DurableController extends BaseController {
 					->orderBy('tb_durable_repair.repair_date','desc')
 					->orderBy('tb_durable_repair.repair_id','desc');
 
-		if(is_null($search)==false)
-			$durable_repair->where('tb_durable_repair.ruin','like','%'.$search.'%');
+		if(is_null($search)==false){
+			$durable_repair->Where(function($query) use ($search)
+            {
+                $query->where('tb_durable_repair.ruin','like','%'.$search.'%')
+                      ->orWhere('tb_durable_repair.repair_id','like','%'.$search.'%');
+            });
+		}
 
 
 		return $durable_repair->skip($skip)->take($take)->get();
