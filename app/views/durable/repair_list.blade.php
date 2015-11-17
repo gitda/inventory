@@ -365,7 +365,12 @@ function TableStatus(status_id){
                 },targets: 4, orderable: false
             },{
                 render: function ( data,type,obj,row) {
-                    return "<a class='ajax-unlink' href='{{URL::to('durable/repair-report-add')}}/"+obj.repair_id+"' ><i class='fa fa-wrench fa-2x text-danger'></i></a>"
+                	var icnclass = 'text-success';
+                	if(data.repair_technician_get_date==null){
+                		icnclass = 'text-danger';
+                	}
+                   	return "<a class='ajax-unlink' href='{{URL::to('durable/repair-report-add')}}/"+obj.repair_id+"' ><i class='fa fa-wrench fa-2x "+icnclass+"'></i></a>"
+                	
                 },targets: 5, orderable: false
             },{
                 render: function ( data,type,obj,row) {

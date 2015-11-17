@@ -81,8 +81,14 @@ function TableStatus(status_id){
                 },targets: 4, orderable: false
             },{
                 render: function ( data,type,obj,row) {
-                	var s = datediff(data.callcenter_date,data.help_date,"seconds");
-                    return s.toHHMMSS();
+					
+					if(data.help_date==null){
+                		return 'ระบบ Online';
+                	}else{
+	                	var s = datediff(data.callcenter_date,data.help_date,"seconds");
+	                    return s.toHHMMSS();	
+                	}
+
                 },targets: 5, orderable: false
             },{
             	render: function ( data,type,obj,row) {

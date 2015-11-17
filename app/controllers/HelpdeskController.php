@@ -45,7 +45,7 @@ class HelpdeskController extends BaseController {
 
 		$helpdesk = Helpdesk::leftJoin('reslove_type as rt','rt.reslove_type','=','helpdesk.reslove_type')
 					->leftJoin('tb_technical as tt','tt.technic_id','=','helpdesk.staff_id')
-					->orderBy('help_date','desc')
+					->orderBy('id','desc')
 					->skip($start)->take(20);
 
 		if(is_null($search)==false)
@@ -90,6 +90,7 @@ class HelpdeskController extends BaseController {
 		$helpdesk->workbench = null;
 		$helpdesk->help_result = Input::get('help_result');
 		$helpdesk->forward_type = Input::get('forward_type');
+		$helpdesk->helpdesk_web_type = 1;
 
 		if($reslove_type=='1')
 		{
@@ -160,6 +161,8 @@ class HelpdeskController extends BaseController {
 		$dept_id =  DB::table('tb_sub_dept')->where('sub_dept_id','=', Input::get('sub_dept_id'))->pluck('dept_id');//Input::all();
 		
 		$helpdesk = Helpdesk::find(Crypt::decrypt($helpid));
+
+		$wb = $helpdesk->workbench;
 		$helpdesk->help_description = Input::get('help_description');
 		$helpdesk->dept_id = $dept_id;
 		$helpdesk->helpdesk_type_id = Input::get('ruin_type_id');
@@ -173,6 +176,7 @@ class HelpdeskController extends BaseController {
 		$helpdesk->workbench = null;
 		$helpdesk->help_result = Input::get('help_result');
 		$helpdesk->forward_type = null;
+		$helpdesk->help_date = date('Y-m-d H:i:s');
 
 		if(!is_null($forward_type))
 		{
@@ -189,14 +193,16 @@ class HelpdeskController extends BaseController {
 		}
 
 		$helpdesk->save();
-
 		if($reslove_type=='2')
 		{
 			switch($workbench)
 			{
 				case "1":
-					$redirect = "helpdesk/help-list";
-					//$redirect = "helpdesk/help-fix/".Crypt::encrypt($helpdesk->id)."/".$helpdesk->repair_id;
+					if($wb<>null){
+						$redirect = "helpdesk/help-list";
+					}else{
+						$redirect = "helpdesk/help-fix/".Crypt::encrypt($helpdesk->id);
+					}
 					break;
 				case "2":
 					$redirect = "helpdesk/help-list";
