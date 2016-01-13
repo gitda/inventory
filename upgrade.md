@@ -24,5 +24,3 @@
 Finally,
 
 - Run `composer update`
-
-

@@ -167,6 +167,20 @@
 						<li><a class="ajax-ีืlink" href="{{URL::to('durable/repair-out')}}"><i class="fa fa-paper-plane-o"></i> รายการครุภัณฑ์ที่ส่งซ่อมภายนอก</a></li>
 					</ul>
 				</li>
+
+				<li class="dropdown">
+
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-cloud-upload"></i>
+						 <span class="hidden-xs">อัพโหลดไฟล์สำรองข้อมูล</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-unlink" href="{{URL::to('upload/uploadbackuphosxp')}}"><i class="fa fa-upload"></i> สำรองข้อมูล HOSxP</a></li>
+
+					</ul>
+
+				</li>
+				
 				<li>
 					<a href="{{URL::to('helpdesk/help-list')}}" class="ajax-unlink">
 						<i class="fa fa-phone"></i>
@@ -219,12 +233,13 @@
 						<span class="hidden-xs">admin</span>
 					</a>
 				</li>
-				<li>
+				<li class="hide">
 					<a href="{{URL::to('faq')}}" class="ajax-unlink">
 						<i class="fa fa-question"></i>
 						<span class="hidden-xs">FAQ</span>
 					</a>
 				</li>
+
 				<li class="dropdown hide">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-bar-chart-o"></i>

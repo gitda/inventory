@@ -23,14 +23,38 @@
 <div class="row-fluid">
 	<div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
 		<ul class="nav nav-pills nav-stacked">
-			<li class="active"><a href="#" class="tab-link" id="overview">callcenter <span id="badge-1" class="badge bg-danger"></span></a></li>
+
+		<li class="active"><a href="#" class="tab-link" id="noverview">ยังไม่ลงรับ <span id="badge-2" class="badge bg-danger"></span></a></li>
+		<li><a href="#" class="tab-link" id="overview">ทะเบียน callcenter <span id="badge-1" class="badge bg-success"></span></a></li>
+
+			
+
 
 		</ul>
 	</div>
 	<div id="dashboard_tabs" class="col-xs-12 col-sm-10">
 		<!--Start Dashboard Tab 1-->
+		<div id="dashboard-noverview" class="row" style="visibility: visible; position: relative;">
+			<table id="example-0" class="table table-bordered table-striped table-hover table-heading table-datatable" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		                <th>ที่</th>
+		                <th>วัน/เดือน/ปี</th>
+		                <th>เรื่อง</th>
+		                <th>ผู้ติดต่อ</th>
+		                <th>ผลการปฎิบัติ</th>
+		                <th><i class="fa fa-clock-o"></i></th>
+		                <th><i class="fa fa-user"></i></th>
+		                <th><i class="fa fa-user"></i></th>
+		            </tr>
+		        </thead>
+		
+	    	</table>
+		</div>
+		<!--End Dashboard Tab 1-->
+		<!--Start Dashboard Tab 1-->
 		<div id="dashboard-overview" class="row" style="visibility: visible; position: relative;">
-			<table id="example-0" class="table table-bordered table-striped table-hover table-heading table-datatable"cellspacing="0" width="100%">
+			<table id="example-1" class="table table-bordered table-striped table-hover table-heading table-datatable" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
 		                <th>ที่</th>
@@ -56,6 +80,7 @@
 
 function Tables(){
 	TableStatus(0);
+	TableStatus(1);
 	// LoadSelect2Script(MakeSelect2);
 }
 
@@ -81,7 +106,6 @@ function TableStatus(status_id){
                 },targets: 4, orderable: false
             },{
                 render: function ( data,type,obj,row) {
-					
 					if(data.help_date==null){
                 		return 'ระบบ Online';
                 	}else{

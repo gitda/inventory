@@ -37,23 +37,40 @@ class HelpdeskController extends BaseController {
 		return View::make('helpdesk.help_create')
 					->with(compact('technician','reslove_type','sub_dept','cause','workbench','helptype','help_result','ruin_type','forward_type'));
 	}
-	public function getAjax()
+	public function getAjax($status)
 	{
 		$search = Input::get('search.value');
 		$start = Input::get('start',0);
 		$draw = Input::get('draw',0);
 
-		$helpdesk = Helpdesk::leftJoin('reslove_type as rt','rt.reslove_type','=','helpdesk.reslove_type')
+
+		switch ($status) {
+			case '0':
+				$helpdesk = Helpdesk::leftJoin('reslove_type as rt','rt.reslove_type','=','helpdesk.reslove_type')
 					->leftJoin('tb_technical as tt','tt.technic_id','=','helpdesk.staff_id')
 					->orderBy('id','desc')
+					->whereNull('help_date')
 					->skip($start)->take(20);
+				$data_count = Helpdesk::whereNull('help_date')->count();
+
+				break;
+			default :
+				$helpdesk = Helpdesk::leftJoin('reslove_type as rt','rt.reslove_type','=','helpdesk.reslove_type')
+					->leftJoin('tb_technical as tt','tt.technic_id','=','helpdesk.staff_id')
+					->orderBy('id','desc')
+					->whereNotNull('help_date')
+					->skip($start)->take(20);
+				$data_count = Helpdesk::count();
+
+				break;
+		}	
 
 		if(is_null($search)==false)
 			$helpdesk->where('helpdesk.help_description','like','%'.$search.'%');
 
 		$helpdesk =	$helpdesk->get()->toArray();
 
-		$data_count = Helpdesk::count();
+		
 		$result_helpdesk = array();
 		$recordsfiltered = $data_count;
 
