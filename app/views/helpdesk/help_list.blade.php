@@ -53,7 +53,7 @@
 		</div>
 		<!--End Dashboard Tab 1-->
 		<!--Start Dashboard Tab 1-->
-		<div id="dashboard-overview" class="row" style="visibility: visible; position: relative;">
+		<div id="dashboard-overview" class="row" style="visibility: hidden; position: relative;">
 			<table id="example-1" class="table table-bordered table-striped table-hover table-heading table-datatable" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
