@@ -24,9 +24,9 @@ Route::group(array('prefix' => 'mobile'),function(){
 
 
 
-	Route::get('api/repair',function(){
-		return Input::all();
-	});
+	// Route::get('api/repair',function(){
+	// 	return Input::all();
+	// });
 
 	Route::get('durable/{bcode}', function($id){
 		$durable = DB::table('tb_durable')->where('durable_barcode','=',$id)->first();

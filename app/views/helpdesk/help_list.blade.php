@@ -91,7 +91,11 @@ function TableStatus(status_id){
         "iDisplayLength": 20,
         "ajax": "{{URL::to('helpdesk/ajax')}}/"+status_id,
         "columnDefs": [
-			{
+        	{
+                render: function ( data,type,obj,row) {
+                	return data.callcenter_date;
+                },targets: 1, orderable: false
+            },{
                 render: function ( data,type,obj,row) {
 
                     return data.help_description;
@@ -123,9 +127,9 @@ function TableStatus(status_id){
             ],
         "columns": [
         	{ "data": "id" ,"width":"5%","class":"text-center"},
-            { "data": "help_date"  ,"width":"9%"},
-            { "data": null,"width":"30%"},
-            { "data": null,"width":"15%"},
+            { "data": null ,"width":"9%"},
+            { "data": null ,"width":"30%"},
+            { "data": null ,"width":"15%"},
             { "data": null ,"width":"10%","class":"text-center"},
             { "data": null ,"width":"10%","class":"text-center"},
             { "data": "technic_name" ,"width":"18%"},

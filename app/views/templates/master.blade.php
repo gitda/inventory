@@ -398,18 +398,18 @@
 
 
 <!-- All functions for this theme + document.ready processing -->
-{{HTML::script('assets/js/devoops.js')}}
+
 @yield('js_footer')
 
 <script type="text/javascript">
-	var base_url = 'http://110.78.163.74/inventory2/';
+	var base_url = "{{URL::to('/')}}/";
 	var timestamp;
 	var availableTime = 1;
 	var interval;
 	var available = false;
 	function goto(ele){
 		if(available)
-			ele.href += "/" + timestamp;
+			ele.href += timestamp;
 	}
 
 	$("#new-ticket").click(function(){
@@ -433,7 +433,7 @@
 		})
 
 </script>
-
+{{HTML::script('assets/js/devoops.js')}}
 
 </body>
 </html>

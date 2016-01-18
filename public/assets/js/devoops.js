@@ -10,7 +10,7 @@
 // homepage: http://arshaw.com/fullcalendar
 // require moment.js
 //
-var base_url = 'http://110.78.163.74/inventory2/';
+//var base_url = 'http://110.78.163.74/inventory2/';
 
 
 function LoadCalendarScript(callback){
