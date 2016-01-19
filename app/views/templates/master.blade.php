@@ -96,7 +96,7 @@
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
 										<span class="welcome">Welcome,</span>
-										<span> {{Sentry::getUser()->first_name." ".Sentry::getUser()->last_name}}</span>
+										<span> {{Sentry::getUser()->technic_name}}</span>
 
 									</div>
 								</a>
