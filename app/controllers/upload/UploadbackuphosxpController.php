@@ -23,11 +23,11 @@ class UploadbackuphosxpController extends \BaseController {
 		$file = Input::file('Filedata');
 		$ymd =  date('Ymd');
 		$his = date('His');
-
 		$ss = $file->getSize();
 
-		$filename = "HOSxp_Master-daily".$ymd.$his.".".$file->getClientOriginalExtension();
-		
+		#$filename = "HOSxp_Master-daily".$ymd.$his.".".$file->getClientOriginalExtension();
+		$filename = $file->getClientOriginalName();
+
 		$file->move($directory, $filename);
 
 		$insertSQL = DB::table('tb_backup')
