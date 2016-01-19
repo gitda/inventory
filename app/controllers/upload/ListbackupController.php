@@ -52,8 +52,9 @@ class ListbackupController extends \BaseController {
 	{
 		$data = DB::table('tb_backup')
 				->select(
-					DB::raw('db_name,file_name,file_size,backup_date')
+					DB::raw('db_name,file_name,file_size,backup_date,backup_time,users.technic_name')
 				)
+				->join('users','tb_backup.user_insert','=','users.id')
 				->whereIn(DB::raw('date(backup_date)'),$arr_day)
 
 				->groupBy('db_name','backup_date')

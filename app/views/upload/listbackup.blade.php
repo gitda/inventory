@@ -5,7 +5,11 @@
 @section('js_header')
 {{HTML::style('assets/plugins/datepicker/datepicker3.css')}}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-
+<style type="text/css">
+	.popover{
+    max-width: 1320px; /* Max Width of the popover (depending on the container!) */
+	}
+</style>
 @stop
 
 @section('content')
@@ -79,7 +83,15 @@
 										@foreach($value as $sub_value)
 											<td align="center">
 											@if($sub_value['has_backup']==true)
-												<i class="fa fa-check text-success"></i>
+												<i class="fa fa-check text-success"
+												data-toggle="popover"
+												title= "คุณสมบัติ"
+												data-content="<i class='fa fa-file-archive-o text-danger'></i> : 
+												{{ $sub_value['file_name'] }}<br>
+												<i class='fa fa-paperclip'></i> : {{ Helpers\Helper::formatSizeUnits($sub_value['file_size']) }}<br>
+												<i class='fa fa-clock-o'></i> : {{ $sub_value['backup_time'] }}<br>
+												<i class='fa fa-user text-success'> : {{ $sub_value['technic_name'] }}</i>"
+												></i>
 											@else
 												<i class="fa fa-close text-danger"></i>
 											@endif
@@ -88,6 +100,8 @@
 									</tr>
 									@endforeach
 								</table>
+
+
 							</div>	
 						</div>
 					</div>	
@@ -105,8 +119,20 @@
 {{ HTML::script('assets/plugins/datepicker/bootstrap-datepicker-thai.js')}}
 
 	<script type="text/javascript">
+
 		<?php $timestamp = time();?>
+
 		$(function() {
+
+			$('[data-toggle="popover"]').popover({
+				html:true,
+				placement:'auto'
+			}).mouseover(function(e){
+				$(e.target).popover('show');
+			})
+			.mouseout(function(e){
+				$(e.target).popover('hide');
+			});
 
 			$('#reg_date').datepicker({
 				language: "th-th",
