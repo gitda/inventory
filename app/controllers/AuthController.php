@@ -38,6 +38,7 @@ class AuthController extends BaseController {
 
 		    // Authenticate the user
 		    $user = Sentry::authenticate($credentials, false);
+
 		    return Redirect::intended('/');
 		}
 		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)

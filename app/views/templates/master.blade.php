@@ -96,7 +96,8 @@
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
 										<span class="welcome">Welcome,</span>
-										<span>ทดสอบ</span>
+										<span> {{Sentry::getUser()->first_name." ".Sentry::getUser()->last_name}}</span>
+
 									</div>
 								</a>
 								<ul class="dropdown-menu">
