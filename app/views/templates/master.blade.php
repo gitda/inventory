@@ -409,7 +409,7 @@
 	var available = false;
 	function goto(ele){
 		if(available)
-			ele.href += timestamp;
+			ele.href+= "/"+timestamp;
 	}
 
 	$("#new-ticket").click(function(){

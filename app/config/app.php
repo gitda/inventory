@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost/inventory2',
+	'url' => 'http://localhost/inventory2/',
 
 	'index' => '',
 	'scan_path' => 'fileupload',
