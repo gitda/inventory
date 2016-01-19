@@ -92,11 +92,9 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 
 	Route::group(array('prefix' => 'upload'),function(){
 
-		Route::get('/',function(){
-			return "asdasdasd";
-		});
-
+		
 		Route::controller('uploadbackuphosxp', 'upload\UploadbackuphosxpController');
+		Route::controller('/', 'upload\ListbackupController');
 
 	});
 	

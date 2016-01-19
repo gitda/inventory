@@ -175,8 +175,8 @@
 						 <span class="hidden-xs">อัพโหลดไฟล์สำรองข้อมูล</span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a class="ajax-unlink" href="{{URL::to('upload/')}}"><i class="fa fa-list"></i> รายการสำรองข้อมูล</a></li>
 						<li><a class="ajax-unlink" href="{{URL::to('upload/uploadbackuphosxp')}}"><i class="fa fa-upload"></i> สำรองข้อมูล HOSxP</a></li>
-
 					</ul>
 
 				</li>
