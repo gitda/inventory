@@ -17,7 +17,7 @@ Route::group(array('prefix' => 'mobile'),function(){
 
 	Route::group(array('prefix' => 'api'),function(){
 
-		Route::resource('repair','api\RepairController');
+		Route::controller('repair','api\RepairController');
 
 	});
 
@@ -89,6 +89,9 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 		Route::controller('repair', 'report\RepairController');
 
 	});
+
+
+	Route::controller('notification', 'notification\NotificationInterfaceController');
 
 	Route::group(array('prefix' => 'upload'),function(){
 

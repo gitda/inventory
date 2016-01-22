@@ -12,10 +12,15 @@ class RepairController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
 		$result = $this->getDurable(0);
 		return $result;
+	}
+
+	public function getDetail($repiar_id)
+	{
+		return DurableRepair::find($repiar_id);
 	}
 
 	private function getDurable($status_id)
@@ -34,6 +39,7 @@ class RepairController extends \BaseController {
 
 		return $durable_repair->get();
 	}
+
 
 
 	/**

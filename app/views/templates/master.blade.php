@@ -15,7 +15,7 @@
 		{{HTML::style('assets/plugins/xcharts/xcharts.min.css')}}
 		{{HTML::style('http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css')}}
 		{{HTML::style('assets/css/style.css')}}
-
+		
 
 		{{HTML::script('assets/plugins/jquery/jquery-2.1.0.min.js')}}
 
@@ -76,10 +76,10 @@
 								</a>
 
 							</li>
-							<li class="hidden-xs hide">
-								<a class="ajax-link" href="assets/ajax/calendar.html">
-									<i class="fa fa-calendar"></i>
-									<span class="badge">7</span>
+							<li class="hidden-xs">
+								<a class="ajax-unlink" href="{{URL::to('notification')}}">
+									<i class="fa fa-bell"></i>
+									<span class="badge" id="notify_count" style="background:#f64c4c">{{Cookie::get('notify_count')}}</span>
 								</a>
 							</li>
 							<li class="hidden-xs hide">
@@ -164,8 +164,8 @@
 						<span class="hidden-xs">ระบบซ่อมบำรุง</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="ajax-ีืlink" href="{{URL::to('durable/repair-list')}}"><i class="fa fa-wrench"></i> รายการซ่อมครุภัณฑ์</a></li>
-						<li><a class="ajax-ีืlink" href="{{URL::to('durable/repair-out')}}"><i class="fa fa-paper-plane-o"></i> รายการครุภัณฑ์ที่ส่งซ่อมภายนอก</a></li>
+						<li><a class="ajax-unlink" href="{{URL::to('durable/repair-list')}}"><i class="fa fa-wrench"></i> รายการซ่อมครุภัณฑ์</a></li>
+						<li><a class="ajax-unlink" href="{{URL::to('durable/repair-out')}}"><i class="fa fa-paper-plane-o"></i> รายการครุภัณฑ์ที่ส่งซ่อมภายนอก</a></li>
 					</ul>
 				</li>
 
@@ -413,6 +413,26 @@
 			ele.href+= "/"+timestamp;
 	}
 
+	var myInterval = setInterval(function () {
+
+		getNotify();
+
+    },10000); 
+
+    var getNotify = function(){
+
+    	$.getJSON("{{URL::to('notification/notify')}}", function( notify ) {
+    		var notify_span = $('#notify_count');
+    		notify_span.addClass('hide');
+    		if(notify.count>0)
+    		{
+    			notify_span.removeClass('hide').text(notify.count);
+    		}
+			
+		});
+
+    };
+
 	$("#new-ticket").click(function(){
 			available = false;
 			var model  = $("#myModal");
@@ -432,6 +452,8 @@
 			  	);
 			});
 		})
+
+	getNotify();
 
 </script>
 {{HTML::script('assets/js/devoops.js')}}
