@@ -21,6 +21,7 @@ class NotificationInterfaceController extends \BaseController {
 		//     ->withBody('<User X> has favorited your Caramel Cream Cakes recipe!')
 		//     //->regarding($user2)
 		//     ->deliver();
+		
 		$unreadNotifications = $user->notifications()->unread()->get();
 
 

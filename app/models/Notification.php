@@ -4,11 +4,11 @@ use Carbon\Carbon;
 
 class Notification extends Eloquent
 {
-    protected $fillable   = ['user_id', 'type', 'subject', 'body', 'object_id', 'object_type', 'sent_at'];
+    protected $fillable   = array('user_id', 'type', 'subject', 'body', 'object_id', 'object_type', 'sent_at');
  
     public function getDates()
     {
-        return ['created_at', 'updated_at', 'sent_at'];
+        return array('created_at', 'updated_at', 'sent_at');
     }
  
     public function user()

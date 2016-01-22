@@ -20,7 +20,8 @@ class RepairController extends \BaseController {
 
 	public function getDetail($repiar_id)
 	{
-		return DurableRepair::find($repiar_id);
+		$array = DurableRepair::where('repair_id','=',$repiar_id)->get();
+		return $array;
 	}
 
 	private function getDurable($status_id)
