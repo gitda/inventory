@@ -75,7 +75,7 @@ class Notification extends Eloquent
     {
         try
         {
-            $object = call_user_func_array($this->object_type . '::findOrFail', [$this->object_id]);
+            $object = call_user_func_array($this->object_type . '::findOrFail', array($this->object_id));
         }
         catch(\Exception $e)
         {
