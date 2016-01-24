@@ -7,4 +7,11 @@ class Helpdesk extends Eloquent {
 	#protected $hidden = ['job','id'];
 
 	public $timestamps = false;
+
+
+
+	public function scopeNonotify($query)
+	{
+	    return $query->where('is_notify', '=', 0);
+	}
 }

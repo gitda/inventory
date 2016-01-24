@@ -5,7 +5,9 @@ use Carbon\Carbon;
 class Notification extends Eloquent
 {
     protected $fillable   = array('user_id', 'type', 'subject', 'body', 'object_id', 'object_type', 'sent_at');
- 
+    
+    private $relatedObject = null;
+
     public function getDates()
     {
         return array('created_at', 'updated_at', 'sent_at');
@@ -56,8 +58,47 @@ class Notification extends Eloquent
         return $this;
     }
 
+    public function read()
+    {
+        $this->is_read = 1;
+        $this->save();
+
+        return $this;
+    }
+
     public function scopeUnread($query)
 	{
 	    return $query->where('is_read', '=', 0);
 	}
+
+    public function hasValidObject()
+    {
+        try
+        {
+            $object = call_user_func_array($this->object_type . '::findOrFail', [$this->object_id]);
+        }
+        catch(\Exception $e)
+        {
+            return false;
+        }
+ 
+        $this->relatedObject = $object;
+ 
+        return true;
+    }
+ 
+    public function getObject()
+    {
+        if($this->relatedObject)
+        {
+            $hasObject = $this->hasValidObject();
+ 
+            if(!$hasObject)
+            {
+                throw new \Exception(sprintf("No valid object (%s with ID %s) associated with this notification.", $this->object_type, $this->object_id));
+            }
+        }
+ 
+        return $this->relatedObject;
+    }
 }

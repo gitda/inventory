@@ -126,9 +126,9 @@
 										</a>
 									</li>
 									<li>
-										<a href="#{{--URL::to('admin/home')--}}">
+										<a href="{{URL::to('settings/account')}}" class="ajax-unlink">
 											<i class="fa fa-cog"></i>
-											<span>Administrator</span>
+											<span>Change Password</span>
 										</a>
 									</li>
 									<li>
@@ -427,6 +427,8 @@
     		if(notify.count>0)
     		{
     			notify_span.removeClass('hide').text(notify.count);
+    		}else{
+    			notify_span.addClass('hide');
     		}
 			
 		});

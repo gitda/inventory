@@ -17,9 +17,11 @@ return array(
 
 	'url' => 'http://localhost',
 
+	'scan_path' => 'fileupload',
+
 	'locale' => 'th',
 
 	'timezone' => 'Asia/Bangkok',
 	
-	'index' => 'index.php',
+	'index' => '',
 );

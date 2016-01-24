@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>DevOOPS</title>
+		<title>INVENTORY2</title>
 		<meta name="description" content="description">
 		<meta name="author" content="Evgeniya">
 		<meta name="keyword" content="keywords">
@@ -21,7 +21,7 @@
 <body>
 <div class="container-fluid">
 	<div id="page-login" class="row">
-		<div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3  col-md-offset-5 col-sm-offset-3">
 			<div class="text-right hide">
 				<a href="page_register.html" class="txt-default">Need an account?</a>
 			</div>
@@ -29,7 +29,7 @@
 				<div class="box-content">
 					<form action="{{URL::to('auth/login')}}" method="post">
 						<div class="text-center">
-							<h3 class="page-header">INVENTORY2 Login Page</h3>
+							<h3 class="page-header">INVENTORY2</h3>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Username</label>

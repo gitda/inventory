@@ -108,6 +108,8 @@ class HelpdeskController extends BaseController {
 		$helpdesk->help_result = Input::get('help_result');
 		$helpdesk->forward_type = Input::get('forward_type');
 		$helpdesk->helpdesk_web_type = 1;
+		$helpdesk->is_notify = 1;
+
 
 		if($reslove_type=='1')
 		{

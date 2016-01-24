@@ -92,6 +92,7 @@ Route::group(array('prefix' => '/', 'before' => 'sentry'),function(){
 
 
 	Route::controller('notification', 'notification\NotificationInterfaceController');
+	Route::controller('settings', 'settings\SettingsController');
 
 	Route::group(array('prefix' => 'upload'),function(){
 
