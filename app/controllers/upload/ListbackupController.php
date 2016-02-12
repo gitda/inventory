@@ -9,6 +9,8 @@ use Helper;
 use DateTime;
 use Backup;
 use Sentry; 
+use LocalReplicateLock;
+use ModelNotFoundException;
 
 class ListbackupController extends \BaseController {
 
@@ -44,8 +46,10 @@ class ListbackupController extends \BaseController {
 			}
 		}
 
+		$last_replicate = $this->getLastReplicate();
+
 		return View::make('upload.listbackup')
-		  	->with(compact('result','datetoday','fullmy'));
+		  	->with(compact('result','datetoday','fullmy','last_replicate'));
 	}
 
 	private function backup($arr_day)
@@ -66,6 +70,20 @@ class ListbackupController extends \BaseController {
 	private function getDbName()
 	{
 		return array('HOSxp_Master-daily','Webserver','Myaccount'/*,'Hosxp','Server999'*/);
+	}
+
+	private function getLastReplicate()
+	{
+		$master = \Hosxp\Master\ReplicateLock::all();
+
+		foreach ($master as $key => $value) {
+			$lrl = LocalReplicateLock::firstOrNew(array('computer_name'=>$value->computer_name));
+			$lrl->last_active = $value->last_active;
+			$lrl->save();
+		}
+		$result = LocalReplicateLock::select('computer_name','last_active',DB::raw('NOW() as currenttime'))->get();
+
+		return $result;
 	}
 
 	private function toDayMonth($dt)

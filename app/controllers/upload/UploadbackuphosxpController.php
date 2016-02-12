@@ -14,6 +14,7 @@ class UploadbackuphosxpController extends \BaseController {
 
 	public function getIndex($year=null,$month=null)
 	{
+
 		return View::make('upload.upload_bkhosxp');
 	}
 

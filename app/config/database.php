@@ -63,6 +63,17 @@ return array(
 			'prefix'    => '',
 		),
 
+		'hosxpmaster' => array(
+			'driver'    => 'mysql',
+			'host' 		=> '192.168.99.1',
+			'database'  => 'leonado',
+			'username'  => 'opd',
+			'password'  => '123',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',

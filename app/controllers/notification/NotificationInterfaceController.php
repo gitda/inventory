@@ -2,16 +2,19 @@
 
 namespace notification;
 
-use User;
-use Sentry;
+use Cache;
+use Carbon\Carbon;
 use Cookie;
-use View;	
-use Helpdesk;
 use Crypt;
+use DB;
+use Helpdesk;
+use Input;
 use Notification;
 use Redirect;
-use Input;
-use DB;
+use Sentry;
+use User;
+use View;	
+use LocalReplicateLock;
 
 class NotificationInterfaceController extends \BaseController {
 
@@ -70,6 +73,8 @@ class NotificationInterfaceController extends \BaseController {
 	public function getNotify()
 	{
 		$this->CheckNewNotify();
+		$this->CheckReplicate();
+		
 
 		$user = User::find(Sentry::getUser()->id);
 		$notifications = $user->notifications()->unread()->count();
@@ -81,9 +86,45 @@ class NotificationInterfaceController extends \BaseController {
 		return json_encode($array);
 	}
 
+	private function CheckReplicate()
+	{
+		if(Cache::has('notify_replication_active')==false)
+		{
+			$master = \Hosxp\Master\ReplicateLock::all();
+			foreach ($master as $key => $value) {
+				$lrl = LocalReplicateLock::firstOrNew(array('computer_name'=>$value->computer_name));
+				$lrl->last_active = $value->last_active;
+				$lrl->save();
+			}
+
+			$result = LocalReplicateLock::select('computer_name','last_active',DB::raw('NOW() as currenttime'))
+					->get();
+
+			foreach ($result as $value) {
+
+				$diff = Carbon::parse($value->last_active)->diffInSeconds(Carbon::now());
+
+				if($diff>120 && Cache::has('notify_replication_active')==false)
+				{
+
+					$user = User::all();
+					foreach ($user as $u) {
+						$u->newNotification()
+						    ->withType('Replicate')
+						    ->withSubject('แจ้งรายการ Replicate')
+						    ->withBody("กรุณาตรวจสอบการ replication ข้อมูลของ computer name ".$value->computer_name)
+						    ->deliver();
+					}
+
+					Cache::put('notify_replication_active', Carbon::now(), 60);
+				}
+			}
+		}
+	}
+
 	private function CheckNewNotify()
 	{
-		$user_id = 2;
+		$user_id = 6;
 		$nonotify = Helpdesk::nonotify()->get();
 
 		foreach ($nonotify as $hd) 
@@ -99,7 +140,6 @@ class NotificationInterfaceController extends \BaseController {
 			$hd->is_notify = 1;
 			$hd->save();
 		}
-
 	}
 
 

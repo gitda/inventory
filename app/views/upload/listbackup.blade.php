@@ -105,6 +105,32 @@
 							</div>	
 						</div>
 					</div>	
+
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-responsive">
+								<table class="table table-bordered">
+
+									<thead>
+										<tr>
+											<th align="center">Computer Name</th>
+											<th align="center">Last Active</th>
+										</tr>
+									</thead>
+
+									@foreach($last_replicate as $lr)
+									<tr>
+										<td>{{$lr->computer_name}}</td>
+										<td>{{$lr->last_active}} / {{\Carbon\Carbon::parse($lr->last_active)->diffForHumans(\Carbon\Carbon::now())}}</td>
+									</tr>
+									@endforeach
+								</table>
+
+
+							</div>	
+						</div>
+					</div>
+
 				</div>
 		</div>
 	</div>
